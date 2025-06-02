@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predict</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        background-color: #2C3E50;
+        background-image: url("/static/Images/Predict_bg.jpg"); /* ✅ this line added */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        text-align: center;
+        padding: 50px;
+        color: white;
+        }
+        .container {
+      background: rgba(44, 62, 80, 0.6); /* semi-transparent background */
+             backdrop-filter: blur(10px); /* frosted glass effect */
+             -webkit-backdrop-filter: blur(10px); /* for Safari */
+             padding: 40px;
+             border-radius: 15px;
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+             width: 50%;
+             margin: auto;
+             border: 1px solid rgba(255, 255, 255, 0.1); /* subtle border */
+        }
+        h2 {
+            color: #ECF0F1;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .logout:hover {
+            text-decoration: underline;
+        }
+        .result-box {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ff4d4d; /* Red background as in your first image */
+            color: white; /* White text */
+            border-radius: 5px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Transaction Prediction</h2>
+        <form id="predictionForm" onsubmit="makePrediction(event)">
+            <label>Amount:</label>
+            <input type="number" step="0.01" name="Amount" required>
+            
+            <label>Sender Old Balance:</label>
+            <input type="number" step="0.01" name="Sender_Old_Balance" required>
+            
+            <label>Transaction Time:</label>
+            <input type="number" name="Transaction_Time" required>
+            
+            <label>Geo Location Mismatched:</label>
+            <select name="Geo_Location_Mismatched">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            
+            <label>Transaction Frequency:</label>
+            <input type="number" name="Transaction_Frequency" required>
+            
+            <label>Same Bank:</label>
+            <select name="Same_Bank">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            
+            <label>Transaction Type:</label>
+            <select name="Transaction_Type">
+                <option value="0">POS</option>
+                <option value="1">ATM</option>
+                <option value="2">Online</option>
+                <option value="3">Wire</option>
+            </select>
+            
+            <label>Sender New Balance:</label>
+            <input type="number" step="0.01" name="Sender_New_Balance" required>
+            
+            <label>Receiver Old Balance:</label>
+            <input type="number" step="0.01" name="Receiver_Old_Balance" required>
+            
+            <label>Receiver New Balance:</label>
+            <input type="number" step="0.01" name="Receiver_New_Balance" required>
+            
+            <label>Receiver New Balance Wrong:</label>
+            <select name="Receiver_New_Balance_Wrong">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            
+            <button type="submit">Predict</button>
+        </form>
+        <div id="result" class="result-box"></div>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+
+    <script>
+        function makePrediction(event) {
+            event.preventDefault(); // Prevent form from refreshing the page
+            const formData = new FormData(document.getElementById('predictionForm'));
+            const resultDiv = document.getElementById('result');
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text()) // Parse as plain text
+            .then(data => {
+                resultDiv.innerHTML = data; // Display the prediction result
+                resultDiv.style.display = 'block'; // Show the result box
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultDiv.innerHTML = 'Error making prediction';
+                resultDiv.style.display = 'block';
+            });
+        }
+    </script>
+</body>
+</html>

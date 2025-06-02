@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+          body {
+                font-family: Arial, sans-serif;
+        background-color: #2C3E50;
+        background-image: url("/static/Images/Login_bg.jpg"); /* ✅ this line added */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        text-align: center;
+        padding: 50px;
+        color: white;
+    }
+    
+        .container {
+             background: rgba(44, 62, 80, 0.6); /* semi-transparent background */
+             backdrop-filter: blur(10px); /* frosted glass effect */
+             -webkit-backdrop-filter: blur(10px); /* for Safari */
+             padding: 40px;
+             border-radius: 15px;
+             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+             width: 50%;
+             margin: auto;
+             border: 1px solid rgba(255, 255, 255, 0.1); /* subtle border */
+        }
+        h2 {
+            color: #ECF0F1;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .register {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            <label>Username:</label>
+            <input type="text" name="username" required>
+            
+            <label>Password:</label>
+            <input type="password" name="password" required>
+            
+            <button type="submit">Login</button>
+        </form>
+        <a href="/register" class="register">Don't have an account? Register</a>
+    </div>
+</body>
+</html>
